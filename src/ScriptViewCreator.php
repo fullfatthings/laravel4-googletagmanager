@@ -27,13 +27,14 @@ class ScriptViewCreator
      */
     public function create(View $view)
     {
-        if ($this->googleTagManager->isEnabled() && empty($this->googleTagManager->id())) {
+        $id = $this->googleTagManager->id();
+        if ($this->googleTagManager->isEnabled() && empty($id)) {
             throw new ApiKeyNotSetException();
         }
 
         $view
             ->with('enabled', $this->googleTagManager->isEnabled())
-            ->with('id', $this->googleTagManager->id())
+            ->with('id', $id)
             ->with('dataLayer', $this->googleTagManager->getDataLayer());
     }
 }
